@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/11 18:01:15 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/13 22:36:32 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct			s_player
 typedef	struct			s_coach
 {
 	char				op_id;
-	unsigned int		carry : 1;
 	unsigned int		id;
+	unsigned int		carry : 1;
 	unsigned int		shift; 				// number of bytes to shift
 	unsigned int		cycles_to_wait;
 	ssize_t				last_cycle_check;			// cycle's number when live operator was executed last time
