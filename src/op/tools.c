@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:04:55 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/18 15:54:49 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 07:49:03 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_coach		*clone_coach(t_coach *crnt_coach, int shift)
 	t_coach	*new_coach;
 
 	i = 0;
-	shift = (coach->pc + shift) % MEM_SIZE;
-	// new_coach = init_coach(crnt_coach->player, shift); 
+	shift = (crnt_coach->pc + shift) % MEM_SIZE;
+	new_coach = initialize_coach(crnt_coach->player, shift); 
 	while (++i < REG_NUMBER)
 		new_coach->reg[i] = crnt_coach->reg[i];
 	new_coach->carry = crnt_coach->carry;
@@ -27,7 +27,7 @@ t_coach		*clone_coach(t_coach *crnt_coach, int shift)
 	return (new_coach);
 }
 
-int			convert_bytecode(const char *map, int size, int position)
+int			bytecode_to_int(const unsigned char *map, int size, int position)
 {
 	int		i;
 	int		res;
@@ -50,7 +50,7 @@ int			convert_bytecode(const char *map, int size, int position)
 	return (res);
 }
 
-void		convert_integer(char *map, int position, int value, int size)
+void		int_to_bytecode(unsigned char *map, int position, int value, int size)
 {
 	int		i;
 
@@ -74,13 +74,13 @@ int			parse_args(t_cw *cw, t_coach *coach, int num, t_op *op)
 	if (coach->arg_type[num] == T_REG)
 		res = coach->reg[id];
 	else if (coach->arg_type[num] == T_DIR)
-		res = convert_bytecode(cw->map, op->label_size, coach->pc + coach->shift);
+		res = bytecode_to_int(cw->map, op->label_size, coach->pc + coach->shift);
 	else if (coach->arg_type[num] == T_IND)
 	{
-		position = convert_bytecode(cw->map, IND_SIZE, coach->pc + coach->shift);
+		position = bytecode_to_int(cw->map, IND_SIZE, coach->pc + coach->shift);
 		if (coach->op_id != 1 && coach->op_id != 13)
 			position = position % IDX_MOD;
-		res = convert_bytecode(cw->map, DIR_SIZE, coach->pc + position);
+		res = bytecode_to_int(cw->map, DIR_SIZE, coach->pc + position);
 	}
 	coach->shift += shift_size(coach->arg_type[num], op);
 	return (res);

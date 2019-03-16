@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 09:47:39 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/16 15:06:04 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 01:48:05 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	lld(t_cw *cw, t_coach *coach, t_op *op)
 {
     int	id;
-	int	res;
 
 	coach->shift += 2;
 	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];

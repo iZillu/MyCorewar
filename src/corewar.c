@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 11:02:06 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/10 18:14:02 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 08:48:56 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ int			main(int argc, char **argv)
 
 	if (argc >= 2)
 	{
-		cw = initializer_cw();
+		cw = initialize_cw();
 		parse_flags(argc--, argv++, cw);
-        // init_players();
-		// fill_map();
+		set_coach(cw);
+		ft_printf("GG WP\n");
 		start_game(cw);
-
+		ft_printf("GG WP\n");
 	}
 	else
 		ft_printf("ERROR: No arguments");
+	ft_printf("LOL EZ\n");
 	return (0);
 }
+
+//	TODO: 
+//			1. Validate size of champ (Error: File champs/42.cor has too large a code (993 bytes > 682 bytes)).
+//	(DONE)	2. MAGIC header, smth go wrong, ya ebal, vernite 2 chasa vremeni. 
+//			3. arg_type[3 ? 4] in t_coach & t_op

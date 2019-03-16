@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 20:25:25 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/14 21:19:09 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 01:20:23 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void				parse_types(t_cw *cw, t_coach *coach, t_op *op)
 		codage = cw->map[(coach->pc + 1) % MEM_SIZE];
 		if (op->amt_args >= 1)
 		{
-			shift_codage = (codage & 192) >> 6) - 1;
+			shift_codage = ((codage & 192) >> 6) - 1;
 			fill_types(coach, shift_codage, 1);
 		}
 		if (op->amt_args >= 2)

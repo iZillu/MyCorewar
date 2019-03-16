@@ -6,13 +6,13 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/11 17:02:24 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 09:00:17 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static const t_op	op_tab[17] =
+static t_op	op_tab[17] =
 {
 	{0, 0, {0}, 0, 0, 0, 0, 0, NULL},
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 4, &live},
@@ -31,7 +31,7 @@ static const t_op	op_tab[17] =
 		"load index", 1, 2, &ldi},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
 		"store index", 1, 1, &sti},
-	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 2, &fork},
+	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 2, &my_fork},
 	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 4, &lld},
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
 		"long load index", 1, 2, &lldi},
@@ -39,18 +39,19 @@ static const t_op	op_tab[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 4, &aff}
 };
 
-static inline void	move_coach(t_cw *cw, t_coach *coach)
+static inline void	move_coach(t_coach *coach)
 {
-	coach->pc = (coach->pc + coach->shift) % MEM_SIZE;
+	coach->pc += coach->shift;
+	coach->pc %= MEM_SIZE;
 	coach->shift = 0;
-	ft_bzero(coach->arg_type, 3);
+	ft_bzero(coach->arg_type, 4);
 }
 
-static inline void	parse_op_id(t_cw *cw, t_coach *coach)
+static inline void	update_op_id(t_cw *cw, t_coach *crnt_coach)
 {
-	coach->op_id = cw->map[coach->pc]
-	if (cw->map[coach->pc] >= 1 && cw->map[coach->pc] <= 16)
-		coach->cycles_to_wait = op_tab[coach->op_id].cycles;
+	crnt_coach->op_id = cw->map[crnt_coach->pc];
+	if (cw->map[crnt_coach->pc] >= 1 && cw->map[crnt_coach->pc] <= 16)
+		crnt_coach->cycles_to_wait = op_tab[crnt_coach->op_id].cycles;
 }
 
 static inline void	execute_operation(t_coach *coach, t_cw *cw)
@@ -58,24 +59,25 @@ static inline void	execute_operation(t_coach *coach, t_cw *cw)
 	t_op			*op;
 
 	op = NULL;
-	if (!coach->cycles_to_wait)
+	if (!(coach->cycles_to_wait))
+		coach->cycles_to_wait--;
+	if (coach->cycles_to_wait > 0)
+		update_op_id(cw, coach);
+	if (!(coach->cycles_to_wait))
 	{
-		parse_op_id(coach, cw);
 		if (coach->op_id >= 1 && coach->op_id <= 16)
 		{
-			op = &op_tab[coach->op_id]
-			parse_types(coach, cw, op);
-			if (validate_arg_types(coach, op) && validate_args(coach. cw, op)
+			op = &op_tab[coach->op_id];
+			parse_types(cw, coach, op);
+			if (validate_arg_types(coach, op) && validate_args(coach, cw, op))
 				op->func(cw, coach, op);
 			else
 				coach->shift += update_shift(coach, op);
 		}
 		else
 			coach->shift = 1;
-		move_coach(cw, coach);
+		move_coach(coach);
 	}
-	else
-		coach->cycles_to_wait--;
 }
 
 void		start_game(t_cw *cw)
@@ -83,7 +85,7 @@ void		start_game(t_cw *cw)
 	t_coach	*crnt_coach;
 
 	while(cw->amt_coaches)
-	{
+	{	
 		// if (-dump 200 == true)
 		// {
 		// 	print_map()
@@ -98,5 +100,6 @@ void		start_game(t_cw *cw)
 		}
 		if (cw->cycles_to_die == cw->cycles_after_check || cw->cycles_to_die <= 0)
 			check_cycles_to_die(cw);
+		// printf("SUK %zu\n", cw->amt_coaches);
 	}
 }

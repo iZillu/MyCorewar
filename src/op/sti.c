@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:39:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/17 22:10:53 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 02:03:34 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ void	sti(t_cw *cw, t_coach *coach, t_op *op)
 	res = coach->reg[id];
 	pos_1 = parse_args(cw, coach, 2, op);
 	pos_2 = parse_args(cw, coach, 3, op);
-	convert_bytecode(cw->map,
-		(coach->pc + ((pos_1 + pos_2) % IDX_MOD, res, DIR_SIZE)));
+	int_to_bytecode(cw->map, (coach->pc + ((pos_1 + pos_2) % IDX_MOD)), res, DIR_SIZE);
 }

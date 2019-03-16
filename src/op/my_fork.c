@@ -1,15 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_players.c                                     :+:      :+:    :+:   */
+/*   my_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 11:54:31 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/09 12:04:50 by hmuravch         ###   ########.fr       */
+/*   Created: 2019/01/15 20:11:06 by hmuravch          #+#    #+#             */
+/*   Updated: 2019/03/15 21:49:13 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "corewar_error_manager.h"
 
+void		my_fork(t_cw *cw, t_coach *coach, t_op *op)
+{
+    int		shift;
+    t_coach	*new_coach;
+
+	coach->shift++;
+	shift = parse_args(cw, coach, 1, op);
+	new_coach = clone_coach(coach, shift % IDX_MOD);
+	add_coach(&(cw->coach), new_coach);
+	cw->amt_coaches++;
+}

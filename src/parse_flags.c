@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdzhanaz <vdzhanaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:18:16 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/13 23:05:13 by vdzhanaz         ###   ########.fr       */
+/*   Updated: 2019/03/16 07:37:20 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static const char		g_usage[] = "Usage: ./corewar "
 
 static const char		*g_errs[] = {"", "Too little arguments",
 	"Wrong parameter passed to '-d' argument",
-	ERR_PLAYERS_NUM, "At least one player needed for the game",
+	// ERR_PLAYERS_NUM, "At least one player needed for the game",
 	"Wrong parameter passed to '-n' argument",
 	"Wrong parameter passed to '-v' argument",
 	"'--start-in' can't be set-up without '--ncurses' argument",
@@ -54,7 +54,7 @@ bool					ft_usage(const int num_err)
 		str_err = (num_err == 0) ? strerror(num_err) : ((char **)g_errs)[num_err];
 	else
 		str_err = "";
-	ft_dprintf(2, (inv_error) ? "%.s%.s\n\n%s" : "%s%s\n\n%s",
+	dprintf(2, (inv_error) ? "%.s%.s\n\n%s" : "%s%s\n\n%s",
 	"Error: ", str_err, g_usage);
 	exit(1);
 }
@@ -66,7 +66,7 @@ bool					ft_puterr(const int num_err, const char *str_err
 	"%sFile %s does not have a magic number in its header\n",
 	"%sFile %s has too large source code (%u bytes > %u bytes)\n"};
 
-	ft_dprintf(2, errs[num_err], "Error: ", str_err, i1, i2);
+	dprintf(2, errs[num_err], "Error: ", str_err, i1, i2);
 	exit(2);
 }
 
@@ -82,115 +82,116 @@ int				ft_read_data(const int fd, void *buf, const int nb)
 
 unsigned int	ft_read_bnum(const int fd, const int cnum)
 {
+	int					i;
 	unsigned int		res;
 	unsigned char		buf[cnum];
-	int					b;
 
+	i = 0;
 	res = 0;
-	b = 0;
 	ft_bzero(&buf, cnum);
 	ft_read_data(fd, buf, cnum);
-	while (b < cnum && (res <<= 8 | 1))
-		res |= buf[b++];
+	while (i < cnum)
+	{
+		res <<= 8;
+		res |= buf[i++];
+	}
 	return (res);
 }
 
-// t_player		ft_init_player(char *name)
-// {
-// 	t_player	res;
-
-// 	ft_bzero((void *)&res, sizeof(res));
-// 	while ()
-// }
 void			ft_fill_map(t_cw *cw, int pl_num)
 {
 	int				step;
 	int				i;
-	unsigned char	tmp_map;
+	unsigned char	*tmp_map;
 
 	tmp_map = cw->map;
 	step = MEM_SIZE / pl_num;
 	i = -1;
 	while (++i < pl_num)
 	{
-		init_coach();
+		// argc();
 		ft_memcpy(tmp_map, PL(i).code, PL(i).code_size);
 		tmp_map += step * sizeof(char); 
 	}
 	cw->amt_players = pl_num;
 }
 
-void			ft_init_arena(int pl_num, char **p_names, t_cw *cw)
+void			ft_init_arena(int pl_num, char **file_name, t_cw *cw)
 {
 	int				i;
-	unsigned int	magic;
 	int				ret;
+	unsigned int	magic;
 
 	i = -1;
 	while (++i < pl_num)
 	{
 		PL(i).id = UINT_MAX - i;
-		if ((PL(i).fd = open(p_names[i], O_RDONLY)) == -1)
-			ft_puterr(0, p_names[i], 0, 0);
+		if ((PL(i).fd = open(file_name[i], O_RDONLY)) == -1)
+			ft_puterr(0, file_name[i], 0, 0);
 		magic = ft_read_bnum(PL(i).fd, sizeof(int));
 		if (magic != COREWAR_EXEC_MAGIC)
-			ft_puterr(1, p_names[i], 0, 0);
+			ft_puterr(1, file_name[i], 0, 0);
+		
 		ft_read_data(PL(i).fd, PL(i).name, PROG_NAME_LENGTH);
+		
+		lseek(PL(i).fd, sizeof(int), SEEK_CUR);
+		PL(i).code_size = ft_read_bnum(PL(i).fd, sizeof(int));
+		
+		ft_read_data(PL(i).fd, PL(i).comment, COMMENT_LENGTH);
+		
 		lseek(PL(i).fd, sizeof(int), SEEK_CUR);
 		ret = ft_read_data(PL(i).fd, PL(i).code, MEM_SIZE);
 		if (ret > PL(i).code_size || ret > CHAMP_MAX_SIZE
 			|| PL(i).code_size > CHAMP_MAX_SIZE)
-			put_error(2, p_names[i], PL(i).code_size, CHAMP_MAX_SIZE);
+			ft_puterr(2, file_name[i], PL(i).code_size, CHAMP_MAX_SIZE);
 		close(PL(i).fd);
 	}
 	ft_fill_map(cw, pl_num);
 }
 
-void			parse_flags(int	ac, char **av, t_cw *cw)
+void			parse_flags(int	argc, char **argv, t_cw *cw)
 {
 	int			i;
 	int			j;
-	int			pl_sum;
 	char		*tmp;
-	char		*p_names[4];
+	char		*file_name[4];
 
 	i = -1;
-	pl_sum = 0;
-	ft_bzero((void *)&p_names, sizeof(p_names));
-	while (++i < ac && pl_sum < 4)
+	ft_bzero((void *)&file_name, sizeof(file_name));
+	while (++i < argc && cw->amt_players < 4)
 	{
-		if (ft_strequ(av[i], "-dump") || ft_strequ(av[i], "-d")
+		if ((ft_strequ(argv[i], "-dump") || ft_strequ(argv[i], "-d")) 
 			&& (cw->f_dump = true))
-			cw->cycle_to_dump = ft_atoi(av[++i]);
-		else if (ft_strequ(av[i], "-n"))
+			cw->cycles_to_dump = ft_atoi(argv[++i]);
+		else if (ft_strequ(argv[i], "-n"))
 		{
-			j = ft_atoi(av[++i]);
+			j = ft_atoi(argv[++i]);
 			if (j > 4 || j < 1)
 				break ;
-			if (!p_names[j - 1])
-				p_names[j - 1] = av[++i];
+			if (!file_name[j - 1])
+				file_name[j - 1] = argv[++i];
 			else
 			{	
-				tmp = p_names[j - 1];
-				p_names[j - 1] = av[++i];
+				tmp = file_name[j - 1];
+				file_name[j - 1] = argv[++i];
 				j= -1;
-				while (++j < 4 && p_names[j])
+				while (++j < 4 && file_name[j])
 					;
 				if (j == 4)
 					break ;
 				else
-					p_names[j] = tmp;					
+					file_name[j] = tmp;					
 			}
-			pl_sum++;
+			cw->amt_players++;
 		}
 		else
 		{
 			j = 0;
-			while (p_names[j])
+			while (file_name[j])
 				j++;
-			p_names[j] = av[i];
-			pl_sum++;
+			file_name[j] = argv[i + 1];
+			cw->amt_players++;
 		}
 	}
-	ft_init_arena(pl_sum, p_names, cw);
+	ft_init_arena(cw->amt_players - 1, file_name, cw);
 }

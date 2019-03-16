@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:56:24 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/16 16:21:12 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/16 02:02:41 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ldi(t_cw *cw, t_coach *coach, t_op *op)
     id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
     res_1 = parse_args(cw, coach, 1, op);
     res_2 = parse_args(cw, coach, 2, op);
-    coach->reg[id] = convert_bytecode(cw->map,
+    coach->reg[id] = bytecode_to_int(cw->map,
 									(coach->pc + ((res_1 + res_2) % IDX_MOD)),
 										DIR_SIZE);
     coach->shift++;
