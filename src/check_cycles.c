@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 15:33:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 08:11:05 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:11:05 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static inline void	clear_dead_coaches(t_cw *cw)
 
 	prev = NULL;
 	crnt = cw->coach;
-	printf("OK\n");
 	while (crnt)
 	{
 		del = crnt;
@@ -54,7 +53,6 @@ static inline void	clear_dead_coaches(t_cw *cw)
 			crnt = crnt->next;
 		}
 	}
-	printf("OK\n");
 }
 
 void				check_cycles_to_die(t_cw *cw)

@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 11:02:06 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 08:48:56 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:58:18 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@ int			main(int argc, char **argv)
 		cw = initialize_cw();
 		parse_flags(argc--, argv++, cw);
 		set_coach(cw);
-		ft_printf("GG WP\n");
+		// ft_printf("GG WP\n");
+		print_start(cw);
+		// ft_printf("GG WP\n");
 		start_game(cw);
-		ft_printf("GG WP\n");
+		// ft_printf("GG WP\n");
+		// int i = -1;
+		// while (++i < cw->amt_players)
+		// 	ft_printf("%i\n", cw->player[i].id);
+		print_result(cw);
+		// ft_printf("GG WP\n");
 	}
 	else
 		ft_printf("ERROR: No arguments");
-	ft_printf("LOL EZ\n");
+	// ft_printf("LOL EZ\n");
 	return (0);
 }
 

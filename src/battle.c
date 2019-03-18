@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 09:00:17 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/18 21:26:07 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ static inline void	update_op_id(t_cw *cw, t_coach *crnt_coach)
 {
 	crnt_coach->op_id = cw->map[crnt_coach->pc];
 	if (cw->map[crnt_coach->pc] >= 1 && cw->map[crnt_coach->pc] <= 16)
+	{
+		printf("%d\n", crnt_coach->op_id);
 		crnt_coach->cycles_to_wait = op_tab[crnt_coach->op_id].cycles;
+	}
 }
 
 static inline void	execute_operation(t_coach *coach, t_cw *cw)
@@ -59,18 +62,24 @@ static inline void	execute_operation(t_coach *coach, t_cw *cw)
 	t_op			*op;
 
 	op = NULL;
-	if (!(coach->cycles_to_wait))
+	// printf("alo\n");
+	if (coach->cycles_to_wait == 0)
 		coach->cycles_to_wait--;
 	if (coach->cycles_to_wait > 0)
 		update_op_id(cw, coach);
-	if (!(coach->cycles_to_wait))
+	if (coach->cycles_to_wait == 0)
 	{
+		printf("alo\n");
 		if (coach->op_id >= 1 && coach->op_id <= 16)
 		{
 			op = &op_tab[coach->op_id];
 			parse_types(cw, coach, op);
+			printf("alo\n");
 			if (validate_arg_types(coach, op) && validate_args(coach, cw, op))
+			{
+				printf("alo\n");
 				op->func(cw, coach, op);
+			}
 			else
 				coach->shift += update_shift(coach, op);
 		}
@@ -86,11 +95,11 @@ void		start_game(t_cw *cw)
 
 	while(cw->amt_coaches)
 	{	
-		// if (-dump 200 == true)
-		// {
-		// 	print_map()
-		// 	exit(0);
-		// }
+		if (cw->cycles_to_dump == cw->cycles)
+		{
+			print_map(cw->map);
+			exit(0);
+		}
 		cw->cycles++ && cw->cycles_after_check++;
 		crnt_coach = cw->coach;
 		while (crnt_coach)

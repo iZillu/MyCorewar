@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 07:49:49 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:58:15 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,15 @@ typedef struct			s_operations
 }						t_op;
 
 
-void					ft_abort(char *s);
 void                    print_help(void);
+void					ft_abort(char *s);
 void					set_coach(t_cw *cw);
 void					start_game(t_cw *cw);
+void					print_start(t_cw *cw);
+void					print_result(t_cw *cw);
 void					check_cycles_to_die(t_cw *cw);
 void					parse_flags(int	ac, char **av, t_cw *cw);
+void					print_map(unsigned char *map); 
 void					add_coach(t_coach **list, t_coach *new_coach);
 void					parse_types(t_cw *cw, t_coach *coach, t_op *op);
 void					int_to_bytecode(unsigned char *map, int position, int value, int size);

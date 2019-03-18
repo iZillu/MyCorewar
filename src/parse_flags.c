@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:18:16 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 07:37:20 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:19:58 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			ft_fill_map(t_cw *cw, int pl_num)
 		ft_memcpy(tmp_map, PL(i).code, PL(i).code_size);
 		tmp_map += step * sizeof(char); 
 	}
-	cw->amt_players = pl_num;
+	cw->last_player = &PL(cw->amt_players - 1);
 }
 
 void			ft_init_arena(int pl_num, char **file_name, t_cw *cw)
@@ -184,14 +184,14 @@ void			parse_flags(int	argc, char **argv, t_cw *cw)
 			}
 			cw->amt_players++;
 		}
-		else
+		else if (i > 0)
 		{
 			j = 0;
 			while (file_name[j])
 				j++;
-			file_name[j] = argv[i + 1];
+			file_name[j] = argv[i];
 			cw->amt_players++;
 		}
 	}
-	ft_init_arena(cw->amt_players - 1, file_name, cw);
+	ft_init_arena(cw->amt_players, file_name, cw);
 }
