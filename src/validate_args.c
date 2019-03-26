@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:46 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 01:30:00 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/26 06:43:19 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int                 validate_arg_types(t_coach *coach, t_op *op)
     int             i;
 
     i = -1;
+	// printf("ATM_ARGS %d\n", op->amt_args);
     while (++i < op->amt_args)
         if (!(coach->arg_type[i] & op->arg_type[i]))
             return (0);

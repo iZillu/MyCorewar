@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:39:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 02:03:34 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/26 06:45:04 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	sti(t_cw *cw, t_coach *coach, t_op *op)
 	int	pos_1;
 	int	pos_2;
 
+	// printf("ALO\n");
+	// printf("%u\n", coach->shift);
 	coach->shift += 2;
+	// printf("%u\n", coach->shift);
 	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
 	coach->shift++;
 	res = coach->reg[id];

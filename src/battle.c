@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/18 21:26:07 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/26 06:46:54 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,15 @@ static inline void	move_coach(t_coach *coach)
 
 static inline void	update_op_id(t_cw *cw, t_coach *crnt_coach)
 {
+	// static int in;
+	// static int full_in;
+	
+	// printf("YA %i\n", in++);
 	crnt_coach->op_id = cw->map[crnt_coach->pc];
+	// printf("CODE %i\n", crnt_coach->op_id);
 	if (cw->map[crnt_coach->pc] >= 1 && cw->map[crnt_coach->pc] <= 16)
 	{
-		printf("%d\n", crnt_coach->op_id);
+		// printf("VOSHEL %i\n", full_in++);
 		crnt_coach->cycles_to_wait = op_tab[crnt_coach->op_id].cycles;
 	}
 }
@@ -60,24 +65,31 @@ static inline void	update_op_id(t_cw *cw, t_coach *crnt_coach)
 static inline void	execute_operation(t_coach *coach, t_cw *cw)
 {
 	t_op			*op;
+	static int i;
 
+	printf("%i\n", i++);
+	// printf("STEP - %u\n", coach->shift);
+	coach->shift++;
+	// printf("STEP - %u\n", coach->shift);
 	op = NULL;
-	// printf("alo\n");
 	if (coach->cycles_to_wait == 0)
-		coach->cycles_to_wait--;
-	if (coach->cycles_to_wait > 0)
 		update_op_id(cw, coach);
+	if (coach->cycles_to_wait > 0)
+		coach->cycles_to_wait--;
 	if (coach->cycles_to_wait == 0)
 	{
-		printf("alo\n");
+		printf("I\n");
 		if (coach->op_id >= 1 && coach->op_id <= 16)
 		{
+			printf("got\n");
+			printf("in\n");
 			op = &op_tab[coach->op_id];
+			// printf("NAME IS - %s\n", op->name);
 			parse_types(cw, coach, op);
-			printf("alo\n");
+			// printf("one %d, two %d, three %d\n", coach->arg_type[0], coach->arg_type[1], coach->arg_type[2]);
 			if (validate_arg_types(coach, op) && validate_args(coach, cw, op))
 			{
-				printf("alo\n");
+				// printf("ALO EBAT\n");
 				op->func(cw, coach, op);
 			}
 			else
@@ -92,9 +104,11 @@ static inline void	execute_operation(t_coach *coach, t_cw *cw)
 void		start_game(t_cw *cw)
 {
 	t_coach	*crnt_coach;
+	// static int i;
 
 	while(cw->amt_coaches)
-	{	
+	{
+		// printf("%zu\n", cw->amt_coaches);
 		if (cw->cycles_to_dump == cw->cycles)
 		{
 			print_map(cw->map);
@@ -109,6 +123,6 @@ void		start_game(t_cw *cw)
 		}
 		if (cw->cycles_to_die == cw->cycles_after_check || cw->cycles_to_die <= 0)
 			check_cycles_to_die(cw);
-		// printf("SUK %zu\n", cw->amt_coaches);
+		// printf("%i\n", i++);
 	}
 }

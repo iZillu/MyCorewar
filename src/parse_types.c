@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_types.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 20:25:25 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/16 01:20:23 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/26 06:42:20 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ void				parse_types(t_cw *cw, t_coach *coach, t_op *op)
 		codage = cw->map[(coach->pc + 1) % MEM_SIZE];
 		if (op->amt_args >= 1)
 		{
-			shift_codage = ((codage & 192) >> 6) - 1;
-			fill_types(coach, shift_codage, 1);
+			shift_codage = ((codage & 192) >> 6);
+			fill_types(coach, shift_codage, 0);
 		}
 		if (op->amt_args >= 2)
 		{
-			shift_codage = ((codage & 48) >> 4) - 1;
-			fill_types(coach, shift_codage, 2);
+			shift_codage = ((codage & 48) >> 4);
+			fill_types(coach, shift_codage, 1);
 		}
 		if (op->amt_args >= 3)
 		{
-			shift_codage = ((codage & 12) >> 2) - 1;
-			fill_types(coach, shift_codage, 3);
+			shift_codage = ((codage & 12) >> 2);
+			fill_types(coach, shift_codage, 2);
 		}
 	}
 	else

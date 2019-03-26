@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/18 19:58:15 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/26 06:36:24 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ typedef struct			s_player
 
 typedef	struct			s_coach
 {
-	int					op_id;
 	unsigned int		id;
 	unsigned int		carry : 1;
 	unsigned int		shift; 				// number of bytes to shift
 	unsigned int		cycles_to_wait;
 	ssize_t				last_cycle_check;	// cycle's number when live operator was executed last time
-	unsigned char		arg_type[4];		// types of op's each argument before operator execution
+	unsigned char		op_id;
+	unsigned char		arg_type[3];		// types of op's each argument before operator execution
 	int					pc;					// address of the next operator to execute at memory (change name of var)
 	int					reg[17];
 	t_player			*player;			// owner
