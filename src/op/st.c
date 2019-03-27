@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 16:04:59 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:59 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/27 20:05:22 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	st(t_cw *cw, t_coach *coach, t_op *op)
 	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
 	res = coach->reg[id];
 	coach->shift++;
-	if (coach->arg_type[2] == T_IND)
+	if (coach->arg_type[1] == T_IND)
 	{
 		position = bytecode_to_int(cw->map,
 			coach->pc + coach->shift, IND_SIZE);

@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 11:14:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:28 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/27 20:49:48 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_coach			*initialize_coach(t_player	*player, int pc)
 	coach->pc = pc;
 	coach->last_cycle_check = 0;
 	coach->cycles_to_wait = 0;
-	coach->reg[0] = -(player->id);
+	// coach->reg[1] = -(player->id);
+	coach->reg[1] = player->id;
 	coach->player = player;
 	coach->next = NULL;
 	return (coach);

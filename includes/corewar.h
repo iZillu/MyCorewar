@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/26 06:36:24 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:24:10 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <unistd.h>
 # include <stdio.h>
 
-# define MODULE(X) (((X) < 0) ? (-(X)) : (X))
+# define MODULE(X)	(((X) < 0) ? (-(X)) : (X))
+# define ID(X)		((X) - 1)
 
 typedef struct s_player		t_player;
 typedef struct s_coach		t_coach;
@@ -86,12 +87,12 @@ typedef struct			s_operations
 {
 	char				*name;
 	unsigned char		amt_args;
-	unsigned char		arg_type[4];
+	unsigned char		arg_type[3];
 	unsigned char		op_id;
 	unsigned int		cycles;
 	char				*description;
 	bool				codage;
-	bool				label_size;
+	int					label_size;
 	void				(*func)(t_cw *, t_coach *, t_op *);
 }						t_op;
 

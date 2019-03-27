@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+         #
+#    By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/25 12:07:56 by hmuravch          #+#    #+#              #
-#    Updated: 2019/03/16 01:36:59 by hmuravch         ###   ########.fr        #
+#    Updated: 2019/03/27 16:29:59 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

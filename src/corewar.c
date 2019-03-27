@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 11:02:06 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:24 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/27 21:11:56 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int			main(int argc, char **argv)
 
 //	TODO: 
 //			1. Validate size of champ (Error: File champs/42.cor has too large a code (993 bytes > 682 bytes)).
-//	(DONE)	2. MAGIC header, smth go wrong, ya ebal, vernite 2 chasa vremeni. 
-//			3. arg_type[3 ? 4] in t_coach & t_op
+//			2. sti, 25 cycle
+//			3. live ???
+//			4. take func 'calc_position'

@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/26 06:46:54 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/27 20:13:14 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_op	op_tab[17] =
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
 		"load index", 1, 2, &ldi},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
-		"store index", 1, 1, &sti},
+		"store index", 1, 2, &sti},
 	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 2, &my_fork},
 	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 4, &lld},
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
@@ -44,20 +44,21 @@ static inline void	move_coach(t_coach *coach)
 	coach->pc += coach->shift;
 	coach->pc %= MEM_SIZE;
 	coach->shift = 0;
-	ft_bzero(coach->arg_type, 4);
+	ft_bzero(coach->arg_type, 3);
 }
 
 static inline void	update_op_id(t_cw *cw, t_coach *crnt_coach)
 {
 	// static int in;
-	// static int full_in;
+	static int full_in;
 	
 	// printf("YA %i\n", in++);
+	printf("PC %i\n", crnt_coach->pc);
 	crnt_coach->op_id = cw->map[crnt_coach->pc];
-	// printf("CODE %i\n", crnt_coach->op_id);
+	printf("CODE %i\n", crnt_coach->op_id);
 	if (cw->map[crnt_coach->pc] >= 1 && cw->map[crnt_coach->pc] <= 16)
 	{
-		// printf("VOSHEL %i\n", full_in++);
+		printf("VOSHEL %i\n", full_in++);
 		crnt_coach->cycles_to_wait = op_tab[crnt_coach->op_id].cycles;
 	}
 }
@@ -67,24 +68,25 @@ static inline void	execute_operation(t_coach *coach, t_cw *cw)
 	t_op			*op;
 	static int i;
 
-	printf("%i\n", i++);
-	// printf("STEP - %u\n", coach->shift);
-	coach->shift++;
-	// printf("STEP - %u\n", coach->shift);
+	printf(" %4i   |   PC %4i   |   CYCLE_WAIT %4i \n\n", i++, coach->pc, coach->cycles_to_wait);
 	op = NULL;
 	if (coach->cycles_to_wait == 0)
+	{
+		// printf("HERE I AM\n");
 		update_op_id(cw, coach);
+		printf("ID %i\n\n", coach->op_id);
+	}
 	if (coach->cycles_to_wait > 0)
 		coach->cycles_to_wait--;
 	if (coach->cycles_to_wait == 0)
 	{
-		printf("I\n");
+		// printf("I\n");
 		if (coach->op_id >= 1 && coach->op_id <= 16)
 		{
-			printf("got\n");
-			printf("in\n");
+			// printf("got\n");
+			// printf("in\n");
 			op = &op_tab[coach->op_id];
-			// printf("NAME IS - %s\n", op->name);
+			printf("NAME IS - %s\n\n", op->name);
 			parse_types(cw, coach, op);
 			// printf("one %d, two %d, three %d\n", coach->arg_type[0], coach->arg_type[1], coach->arg_type[2]);
 			if (validate_arg_types(coach, op) && validate_args(coach, cw, op))
@@ -114,7 +116,7 @@ void		start_game(t_cw *cw)
 			print_map(cw->map);
 			exit(0);
 		}
-		cw->cycles++ && cw->cycles_after_check++;
+		++cw->cycles && cw->cycles_after_check++;
 		crnt_coach = cw->coach;
 		while (crnt_coach)
 		{

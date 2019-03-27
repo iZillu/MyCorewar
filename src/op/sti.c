@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:39:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/26 06:45:04 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:25:47 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	sti(t_cw *cw, t_coach *coach, t_op *op)
 	coach->shift += 2;
 	// printf("%u\n", coach->shift);
 	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
+	// printf("%i\n", id);
 	coach->shift++;
 	res = coach->reg[id];
 	pos_1 = parse_args(cw, coach, 2, op);
