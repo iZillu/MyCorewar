@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 19:24:10 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/29 21:38:16 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void					sti(t_cw *cw, t_coach *coach, t_op *op);
 void					sub(t_cw *cw, t_coach *coach, t_op *op);
 void					xor(t_cw *cw, t_coach *coach, t_op *op);
 void					zjmp(t_cw *cw, t_coach *coach, t_op *op);
+int						calc_pos(int pos);
 
 /*
 **						END

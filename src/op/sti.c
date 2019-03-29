@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:39:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/28 21:39:58 by vdzhanaz         ###   ########.fr       */
+/*   Updated: 2019/03/29 22:24:25 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,24 @@ void	sti(t_cw *cw, t_coach *coach, t_op *op)
 	int	res;
 	int	pos_1;
 	int	pos_2;
-	if (cw->cycles < 50) {
-		
-	}
+	// if (cw->cycles == 2535) {
+		// ft_printf("coach->reg[id]: %d\n", coach->reg[4]);
+	// }
 	// printf("ALO\n");
 	// printf("%u\n", coach->shift);
 	coach->shift += 2;
 	// printf("%u\n", coach->shift);
-	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
+	// id = cw->map[calc_pos(coach->pc + coach->shift)];
+	id = cw->map[calc_pos(coach->pc + coach->shift)];
 	// printf("%i\n", id);
 	coach->shift++;
+	if (cw->cycles > 2700) {
+		ft_printf("r_id :%d\n", id);
+	}
 	res = coach->reg[id];
 	pos_1 = parse_args(cw, coach, 2, op);
 	pos_2 = parse_args(cw, coach, 3, op);
 	int_to_bytecode(cw->map, (coach->pc + ((pos_1 + pos_2) % IDX_MOD)), res, DIR_SIZE);
 }
+
+// cw->arena[calc_pos(pc + step)]

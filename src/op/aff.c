@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 20:24:28 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 17:59:49 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/29 21:40:49 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	aff(t_cw *cw, t_coach *coach, t_op *op)
 
     (void)op;
 	coach->shift += 2;
-    id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
+    id = cw->map[calc_pos(coach->pc + coach->shift)];
     coach->shift++;
     if (cw->print_aff)
         ft_printf("Aff: %c\n", (char)coach->reg[id]);

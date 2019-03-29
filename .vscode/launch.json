@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/corewar",
-            "args": ["-d", "26", "bots/fluttershy.cor", "bots/bee_gees.cor"],
+            "args": ["-d", "10000", "bots/fluttershy.cor", "bots/bee_gees.cor"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

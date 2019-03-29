@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 09:56:50 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:18:02 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/29 22:40:14 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	xor(t_cw *cw, t_coach *coach, t_op *op)
     int res_2;
 
     coach->shift += 2;
-    id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
     res_1 = parse_args(cw, coach, 1, op);
     res_2 = parse_args(cw, coach, 2, op);
+    id = cw->map[calc_pos(coach->pc + coach->shift)];
     coach->reg[id] = res_1 ^ res_2;
     coach->carry = coach->reg[id] ? false : true;
     coach->shift++;

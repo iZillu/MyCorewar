@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:04:55 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/28 22:50:50 by vdzhanaz         ###   ########.fr       */
+/*   Updated: 2019/03/29 21:40:49 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			bytecode_to_int(const unsigned char *map, int size, int position)
 	i = 0;
 	res = 0;
 	// minus = (map[(position) % MEM_SIZE] & 128) ? true : false ;
-	printf("CHAR %u | pos %i\n", map[(position)], position);
+	// printf("CHAR %u | pos %i\n", map[(position)], position);
 	minus = (bool)(map[(position) % MEM_SIZE] & 128);
 	while (size)
 	{
@@ -73,7 +73,7 @@ int			parse_args(t_cw *cw, t_coach *coach, int arg_num, t_op *op)
 
 	res = 0;
 	position = 0;
-	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
+	id = cw->map[calc_pos(coach->pc + coach->shift)];
 	if (coach->arg_type[ID(arg_num)] == T_REG)
 		res = coach->reg[id];
 	else if (coach->arg_type[ID(arg_num)] == T_DIR)
