@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 16:04:59 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 20:05:22 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/28 21:40:03 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	st(t_cw *cw, t_coach *coach, t_op *op)
 	int	position;
 
 	(void)op;
+	if (cw->cycles < 50) {
+		
+	}
 	coach->shift += 2;
 	id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
 	res = coach->reg[id];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 20:13:14 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/28 21:20:32 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void		start_game(t_cw *cw)
 			exit(0);
 		}
 		++cw->cycles && cw->cycles_after_check++;
+		if (cw->cycles == 1000)
+			ft_printf("");
 		crnt_coach = cw->coach;
 		while (crnt_coach)
 		{

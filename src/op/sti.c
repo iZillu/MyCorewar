@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:39:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 19:25:47 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/28 21:39:58 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	sti(t_cw *cw, t_coach *coach, t_op *op)
 	int	res;
 	int	pos_1;
 	int	pos_2;
-
+	if (cw->cycles < 50) {
+		
+	}
 	// printf("ALO\n");
 	// printf("%u\n", coach->shift);
 	coach->shift += 2;

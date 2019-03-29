@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ldi.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:56:24 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:53 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/28 21:37:39 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	ldi(t_cw *cw, t_coach *coach, t_op *op)
 	int	res_2;
 	int	id;
 
+	if (cw->cycles < 50) {
+		
+	}
 	coach->shift += 2;
     id = cw->map[(coach->pc + coach->shift) % MEM_SIZE];
     res_1 = parse_args(cw, coach, 1, op);

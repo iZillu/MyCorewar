@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:04:55 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 20:54:20 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/28 22:50:50 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		int_to_bytecode(unsigned char *map, int position, int value, int size)
 	i = 0;
 	while (size)
 	{
-		map[(position + size - 1) % 255] = (unsigned char)((value >> i) & 255);
+		map[(position) + size - 1] = (unsigned char)((value >> i) & 255);
 		i += 8;
 		size--;
 	}
