@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:39:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/29 22:24:25 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/30 22:30:43 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	sti(t_cw *cw, t_coach *coach, t_op *op)
 	id = cw->map[calc_pos(coach->pc + coach->shift)];
 	// printf("%i\n", id);
 	coach->shift++;
-	if (cw->cycles > 2700) {
-		ft_printf("r_id :%d\n", id);
-	}
 	res = coach->reg[id];
+	// if (cw->cycles == 3647) {
+	// 	ft_printf("r_id :%d, coach->carry: %d, value: %d\n", id, coach->carry, res);
+	// }
 	pos_1 = parse_args(cw, coach, 2, op);
 	pos_2 = parse_args(cw, coach, 3, op);
 	int_to_bytecode(cw->map, (coach->pc + ((pos_1 + pos_2) % IDX_MOD)), res, DIR_SIZE);

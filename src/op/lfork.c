@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 00:04:43 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:54 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/30 20:48:36 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		lfork(t_cw *cw, t_coach *coach, t_op *op)
 
 	coach->shift++;
 	shift = parse_args(cw, coach, 1, op);
-	new_coach = clone_coach(coach, shift % IDX_MOD);
+	new_coach = clone_coach(coach, shift);
 	add_coach(&(cw->coach), new_coach);
 	cw->amt_coaches++;
 }

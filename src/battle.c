@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/29 21:03:11 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/30 22:19:17 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ static inline void	execute_operation(t_coach *coach, t_cw *cw)
 		else
 			coach->shift = 1;
 		move_coach(coach);
+		// if (coach->carry) {
+		// 	ft_printf("vm->cycle: %d; hui sosi\n", cw->cycles);
+		// } 
 	}
 }
 
