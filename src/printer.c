@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 12:08:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:37 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:41:45 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_start(t_cw *cw)
 
 	i = -1;
 	ft_printf("Introducing contestants...\n");
-	while(++i < cw->amt_players)
+	while (++i < cw->amt_players)
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 			i + 1,
 			cw->player[i].code_size,

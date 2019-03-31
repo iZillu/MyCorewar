@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 16:04:59 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/30 22:30:32 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:39:10 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	st(t_cw *cw, t_coach *coach, t_op *op)
 	id = cw->map[calc_pos(coach->pc + coach->shift)];
 	res = coach->reg[id];
 	coach->shift++;
-	// if (cw->cycles == 3647) {
-	// 	ft_printf("r_id :%d, coach->carry: %d\n", id, coach->carry);		
-	// }
 	if (coach->arg_type[1] == T_IND)
 	{
 		position = bytecode_to_int(cw->map, IND_SIZE,

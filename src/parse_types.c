@@ -6,20 +6,20 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 20:25:25 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 15:43:39 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:41:15 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static inline void	fill_types(t_coach *coach, char	shift_codage, int id)
+static inline void	fill_types(t_coach *coach, char shift_codage, int id)
 {
 	if (shift_codage == 1)
-				coach->arg_type[id] = T_REG;
+		coach->arg_type[id] = T_REG;
 	if (shift_codage == 2)
-				coach->arg_type[id] = T_DIR;
+		coach->arg_type[id] = T_DIR;
 	if (shift_codage == 3)
-				coach->arg_type[id] = T_IND;
+		coach->arg_type[id] = T_IND;
 }
 
 void				parse_types(t_cw *cw, t_coach *coach, t_op *op)

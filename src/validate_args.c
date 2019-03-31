@@ -6,30 +6,28 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:46 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/26 06:43:19 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:42:23 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int                 validate_arg_types(t_coach *coach, t_op *op)
+int			validate_arg_types(t_coach *coach, t_op *op)
 {
-    int             i;
+	int		i;
 
-    i = -1;
-	// printf("ATM_ARGS %d\n", op->amt_args);
-    while (++i < op->amt_args)
-        if (!(coach->arg_type[i] & op->arg_type[i]))
-            return (0);
-    return (1);
+	i = -1;
+	while (++i < op->amt_args)
+		if (!(coach->arg_type[i] & op->arg_type[i]))
+			return (0);
+	return (1);
 }
 
-int                 validate_args(t_coach *coach, t_cw *cw, t_op *op)
+int			validate_args(t_coach *coach, t_cw *cw, t_op *op)
 {
 	int				i;
 	unsigned int	shift;
 	char			r_id;
-	// int				check;
 
 	i = -1;
 	shift = 1 + (op->codage ? 1 : 0);

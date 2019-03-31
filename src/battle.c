@@ -6,13 +6,13 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 18:15:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/30 22:19:17 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 19:21:53 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_op	op_tab[17] =
+static				t_op	g_op_tab[17] =
 {
 	{0, 0, {0}, 0, 0, 0, 0, 0, NULL},
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 4, &live},
@@ -49,87 +49,57 @@ static inline void	move_coach(t_coach *coach)
 
 static inline void	update_op_id(t_cw *cw, t_coach *crnt_coach)
 {
-	// static int in;
-	// static int full_in;
-	
-	// printf("YA %i\n", in++);
-	// printf("PC %i\n", crnt_coach->pc);
 	crnt_coach->op_id = cw->map[crnt_coach->pc];
-	// printf("CODE %i\n", crnt_coach->op_id);
 	if (cw->map[crnt_coach->pc] >= 1 && cw->map[crnt_coach->pc] <= 16)
-	{
-		// printf("VOSHEL %i\n", full_in++);
-		crnt_coach->cycles_to_wait = op_tab[crnt_coach->op_id].cycles;
-	}
+		crnt_coach->cycles_to_wait = g_op_tab[crnt_coach->op_id].cycles;
 }
 
 static inline void	execute_operation(t_coach *coach, t_cw *cw)
 {
 	t_op			*op;
-	// static int i;
 
-	// printf(" %4i   |   PC %4i   |   CYCLE_WAIT %4i \n\n", i++, coach->pc, coach->cycles_to_wait);
 	op = NULL;
 	if (coach->cycles_to_wait == 0)
-	{
-		// printf("HERE I AM\n");
 		update_op_id(cw, coach);
-		// printf("ID %i\n\n", coach->op_id);
-	}
 	if (coach->cycles_to_wait > 0)
 		coach->cycles_to_wait--;
 	if (coach->cycles_to_wait == 0)
 	{
-		// printf("I\n");
 		if (coach->op_id >= 1 && coach->op_id <= 16)
 		{
-			// printf("got\n");
-			// printf("in\n");
-			op = &op_tab[coach->op_id];
-			// printf("NAME IS - %s\n\n", op->name);
+			op = &g_op_tab[coach->op_id];
 			parse_types(cw, coach, op);
-			// printf("one %d, two %d, three %d\n", coach->arg_type[0], coach->arg_type[1], coach->arg_type[2]);
 			if (validate_arg_types(coach, op) && validate_args(coach, cw, op))
-			{
-				// printf("ALO EBAT\n");
 				op->func(cw, coach, op);
-			}
 			else
 				coach->shift += update_shift(coach, op);
 		}
 		else
 			coach->shift = 1;
 		move_coach(coach);
-		// if (coach->carry) {
-		// 	ft_printf("vm->cycle: %d; hui sosi\n", cw->cycles);
-		// } 
 	}
 }
 
-void		start_game(t_cw *cw)
+void				start_game(t_cw *cw)
 {
 	t_coach	*crnt_coach;
-	// static int i;
 
-	while(cw->amt_coaches)
+	while (cw->amt_coaches)
 	{
-		// printf("%zu\n", cw->amt_coaches);
 		if (cw->cycles_to_dump == cw->cycles)
 		{
 			print_map(cw->map);
 			exit(0);
 		}
 		++cw->cycles && cw->cycles_after_check++;
-		if (cw->cycles == 1000)
-			ft_printf("");
 		crnt_coach = cw->coach;
 		while (crnt_coach)
 		{
 			execute_operation(crnt_coach, cw);
 			crnt_coach = crnt_coach->next;
 		}
-		if (cw->cycles_to_die == cw->cycles_after_check || cw->cycles_to_die <= 0)
+		if (cw->cycles_to_die == cw->cycles_after_check
+						|| cw->cycles_to_die <= 0)
 			check_cycles_to_die(cw);
-		// printf("%i\n", i++);
 	}
 }

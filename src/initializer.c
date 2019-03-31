@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 11:14:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/27 20:49:48 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:40:33 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 t_cw			*initialize_cw(void)
 {
-    t_cw    	*cw;
+	t_cw	*cw;
 
-    if (!(cw = (t_cw *)ft_memalloc(sizeof(t_cw))))
-        ft_abort(ERR_CW_INIT);
-    cw->amt_players = 0;
+	if (!(cw = (t_cw *)ft_memalloc(sizeof(t_cw))))
+		ft_abort(ERR_CW_INIT);
+	cw->amt_players = 0;
 	cw->last_player = NULL;
 	cw->coach = NULL;
 	cw->amt_lives = 0;
@@ -31,10 +31,10 @@ t_cw			*initialize_cw(void)
 	cw->cycles_after_check = 0;
 	cw->f_dump = false;
 	cw->print_aff = false;
-    return (cw);
+	return (cw);
 }
 
-t_coach			*initialize_coach(t_player	*player, int pc)
+t_coach			*initialize_coach(t_player *player, int pc)
 {
 	t_coach		*coach;
 	static int	id;
@@ -47,7 +47,6 @@ t_coach			*initialize_coach(t_player	*player, int pc)
 	coach->pc = pc;
 	coach->last_cycle_check = 0;
 	coach->cycles_to_wait = 0;
-	// coach->reg[1] = -(player->id);
 	coach->reg[1] = player->id;
 	coach->player = player;
 	coach->next = NULL;

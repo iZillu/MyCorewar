@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 01:19:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/29 21:07:02 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:38:54 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void			live(t_cw *cw, t_coach *coach, t_op *op)
 		player = &cw->player[ID(MODULE(id))];
 		player->last_cycle_check = cw->cycles;
 		player->crnt_lives++;
-		// printf("ok\n");
 		cw->last_player = player;
 	}
 }

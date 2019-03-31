@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 20:11:06 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/30 20:57:25 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:08:37 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		my_fork(t_cw *cw, t_coach *coach, t_op *op)
 {
-    int		shift;
-    t_coach	*new_coach;
+	int		shift;
+	t_coach	*new_coach;
 
 	coach->shift++;
 	shift = parse_args(cw, coach, 1, op);

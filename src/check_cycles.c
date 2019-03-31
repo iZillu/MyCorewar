@@ -6,7 +6,7 @@
 /*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 15:33:27 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:20 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:36:27 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ static inline void	respawn_live_nums(t_cw *cw)
 
 static inline void	clear_dead_coaches(t_cw *cw)
 {
-	t_coach 		*prev;
-	t_coach			*crnt;
-	t_coach			*del;
+	t_coach *prev;
+	t_coach	*crnt;
+	t_coach	*del;
 
 	prev = NULL;
 	crnt = cw->coach;
 	while (crnt)
 	{
 		del = crnt;
-		if ((cw->cycles_to_die <= 0
-		|| ((cw->cycles - del->last_cycle_check) >= cw->cycles_to_die))
-		&& cw->amt_coaches--)
+		if ((cw->cycles_to_die <= 0 || ((cw->cycles - del->last_cycle_check) \
+		>= cw->cycles_to_die)) && cw->amt_coaches--)
 		{
 			crnt = crnt->next;
 			if (cw->coach == del)
