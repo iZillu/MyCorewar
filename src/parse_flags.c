@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:18:16 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/25 21:17:28 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 16:12:08 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,18 @@ unsigned int	ft_read_bnum(const int fd, const int cnum)
 	return (res);
 }
 
+int				ft_read_num(char *src)
+{
+	int	i;
+
+	i = -1;
+	while(src[++i] != '\0')
+		if (!ft_isdigit(src[i]))
+			exit(1);
+	i = ft_atoi(src);
+	return (i);
+}
+
 void			ft_fill_map(t_cw *cw, int pl_num)
 {
 	int				step;
@@ -149,49 +161,89 @@ void			ft_init_arena(int pl_num, char **file_name, t_cw *cw)
 	ft_fill_map(cw, pl_num);
 }
 
+int				ft_parse_n(int i, char **argv, char *file_name)
+{
+	int		j;
+	char	*tmp;
+
+	j = ft_read_num(argv[++i]);
+	if (j > 4 || j < 1)
+		exit(1);
+	if (!file_name[j - 1])
+		file_name[j - 1] = argv[++i];
+	else
+	{	
+		tmp = file_name[j - 1];
+		file_name[j - 1] = argv[++i];
+		j = -1;
+		while (++j < 4 && file_name[j])
+			;
+		if (j == 4)
+			exit(1);
+		else
+			file_name[j] = tmp;
+	}
+	return (i);
+}
+
 void			parse_flags(int	argc, char **argv, t_cw *cw)
 {
-	int			i;
-	int			j;
-	char		*tmp;
-	char		*file_name[4];
+	int		i;
+	int		j;
+	// char	*tmp;
+	char	*file_name[4];
 
-	i = -1;
+	// i = -1;
+	i = 0;
 	ft_bzero((void *)&file_name, sizeof(file_name));
 	while (++i < argc && cw->amt_players < 4)
 	{
-		if ((ft_strequ(argv[i], "-dump") || ft_strequ(argv[i], "-d")) 
+		if ((ft_strequ(argv[i], "-dump") || ft_strequ(argv[i], "-d"))
 			&& (cw->f_dump = true))
-			cw->cycles_to_dump = ft_atoi(argv[++i]);
-		else if (ft_strequ(argv[i], "-n"))
+			cw->cycles_to_dump = ft_read_num(argv[++i]);
+		else
 		{
-			j = ft_atoi(argv[++i]);
-			if (j > 4 || j < 1)
-				break ;
-			if (!file_name[j - 1])
-				file_name[j - 1] = argv[++i];
+			if (ft_strequ(argv[i], "-n"))
+				i = ft_parse_n(i, argv, file_name);
 			else
-			{	
-				tmp = file_name[j - 1];
-				file_name[j - 1] = argv[++i];
-				j= -1;
-				while (++j < 4 && file_name[j])
-					;
-				if (j == 4)
-					break ;
-				else
-					file_name[j] = tmp;					
+			{
+				j = 0;
+				while (file_name[j])
+					j++;
+				file_name[j] = argv[i];
 			}
 			cw->amt_players++;
 		}
-		else if (i > 0)
-		{
-			j = 0;
-			while (file_name[j])
-				j++;
-			file_name[j] = argv[i];
-			cw->amt_players++;
-		}
+		// else if (ft_strequ(argv[i], "-n"))
+		// {
+		// 	// j = ft_read_num(argv[++i]);
+		// 	// if (j > 4 || j < 1)
+		// 	// 	break ;
+		// 	// if (!file_name[j - 1])
+		// 	// 	file_name[j - 1] = argv[++i];
+		// 	// else
+		// 	// {	
+		// 	// 	tmp = file_name[j - 1];
+		// 	// 	file_name[j - 1] = argv[++i];
+		// 	// 	j= -1;
+		// 	// 	while (++j < 4 && file_name[j])
+		// 	// 		;
+		// 	// 	if (j == 4)
+		// 	// 		break ;
+		// 	// 	else
+		// 	// 		file_name[j] = tmp;					
+		// 	// }
+		// 	i = ft_parse_n(i, argv, file_name);
+		// 	cw->amt_players++;
+		// }
+		// else if (i > 0)
+		// {
+		// 	j = 0;
+		// 	while (file_name[j])
+		// 		j++;
+		// 	file_name[j] = argv[i];
+		// 	cw->amt_players++;
+		// }
 	}
 	ft_init_arena(cw->amt_players, file_name, cw);
 }
