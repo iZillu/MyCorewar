@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/29 21:38:16 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:26:08 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdio.h>
+# include "corewar_error_manager.h"
 
 # define MODULE(X)	(((X) < 0) ? (-(X)) : (X))
 # define ID(X)		((X) - 1)

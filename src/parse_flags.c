@@ -6,7 +6,7 @@
 /*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:18:16 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/31 16:12:08 by vdzhanaz         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:03:50 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int				ft_read_num(char *src)
 	i = -1;
 	while(src[++i] != '\0')
 		if (!ft_isdigit(src[i]))
-			exit(1);
+			ft_abort(ERR_NOT_A_NUM);
 	i = ft_atoi(src);
 	return (i);
 }
@@ -161,14 +161,14 @@ void			ft_init_arena(int pl_num, char **file_name, t_cw *cw)
 	ft_fill_map(cw, pl_num);
 }
 
-int				ft_parse_n(int i, char **argv, char *file_name)
+int				ft_parse_n(int i, char **argv, char **file_name, t_cw *cw)
 {
 	int		j;
 	char	*tmp;
 
 	j = ft_read_num(argv[++i]);
 	if (j > 4 || j < 1)
-		exit(1);
+		ft_abort(ERR_NOT_A_NUM);
 	if (!file_name[j - 1])
 		file_name[j - 1] = argv[++i];
 	else
@@ -179,10 +179,11 @@ int				ft_parse_n(int i, char **argv, char *file_name)
 		while (++j < 4 && file_name[j])
 			;
 		if (j == 4)
-			exit(1);
+			ft_abort(ERR_NOT_A_NUM);
 		else
 			file_name[j] = tmp;
 	}
+	cw->amt_players++;
 	return (i);
 }
 
@@ -190,30 +191,39 @@ void			parse_flags(int	argc, char **argv, t_cw *cw)
 {
 	int		i;
 	int		j;
-	// char	*tmp;
 	char	*file_name[4];
 
-	// i = -1;
 	i = 0;
 	ft_bzero((void *)&file_name, sizeof(file_name));
-	while (++i < argc && cw->amt_players < 4)
+	while (++i < argc && (cw->amt_players < 4 || ft_strequ(argv[i], "-dump") ||
+	ft_strequ(argv[i], "-d")))
 	{
 		if ((ft_strequ(argv[i], "-dump") || ft_strequ(argv[i], "-d"))
 			&& (cw->f_dump = true))
 			cw->cycles_to_dump = ft_read_num(argv[++i]);
+		else if (ft_strequ(argv[i], "-n"))
+			i = ft_parse_n(i, argv, file_name, cw);
 		else
 		{
-			if (ft_strequ(argv[i], "-n"))
-				i = ft_parse_n(i, argv, file_name);
-			else
-			{
-				j = 0;
-				while (file_name[j])
-					j++;
-				file_name[j] = argv[i];
-			}
+			j = 0;
+			while (file_name[j])
+				j++;
+			file_name[j] = argv[i];
 			cw->amt_players++;
 		}
+		// else
+		// {
+		// 	if (ft_strequ(argv[i], "-n"))
+		// 		i = ft_parse_n(i, argv, file_name);
+		// 	else
+		// 	{
+		// 		j = 0;
+		// 		while (file_name[j])
+		// 			j++;
+		// 		file_name[j] = argv[i];
+		// 	}
+		// 	cw->amt_players++;
+		// }
 		// else if (ft_strequ(argv[i], "-n"))
 		// {
 		// 	// j = ft_read_num(argv[++i]);
@@ -245,5 +255,7 @@ void			parse_flags(int	argc, char **argv, t_cw *cw)
 		// 	cw->amt_players++;
 		// }
 	}
+	if (i < argc)
+		ft_abort("Too many players");
 	ft_init_arena(cw->amt_players, file_name, cw);
 }

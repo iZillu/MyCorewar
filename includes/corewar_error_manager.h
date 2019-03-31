@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_error_manager.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 11:24:50 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/01/09 11:26:08 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:30:43 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@
 # define ERR_PLAYERS_NUM		"ERROR: Invalid number of players"
 
 # define ERR_VS_INIT			"ERROR: Can not initialize visualiser"
+
+# define ERR_NOT_A_NUM          "ERROR: Invalid flag value"
 
 #endif
