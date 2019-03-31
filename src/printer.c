@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 12:08:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/31 18:41:45 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 20:11:31 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-void	print_help(void)
-{
-    ft_printf("Usage: ./corewar [-a (-dump|-d) <num> (-shed|-s) <num> -l"\
-							" <num>] [-v] [-n <num>] <champion.cor> <...>\n");
-
-	exit(0);
-}
 
 void	print_start(t_cw *cw)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuravch <hmuravch@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vdzhanaz <vdzhanaz@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 09:23:30 by hmuravch          #+#    #+#             */
-/*   Updated: 2019/03/31 18:25:43 by hmuravch         ###   ########.fr       */
+/*   Updated: 2019/03/31 20:10:42 by vdzhanaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <unistd.h>
+#include <errno.h>
 # include <stdio.h>
 # include "corewar_error_manager.h"
 
 # define MODULE(X)	(((X) < 0) ? (-(X)) : (X))
 # define ID(X)		((X) - 1)
+# define PL(i)		cw->player[i]
 
 typedef struct s_player		t_player;
 typedef struct s_coach		t_coach;
@@ -119,6 +121,11 @@ unsigned int			update_shift(t_coach *coach, t_op *op);
 t_cw					*initialize_cw(void);
 t_coach					*clone_coach(t_coach *crnt_coach, int shift);
 t_coach					*initialize_coach(t_player	*player, int pc);
+int						ft_read_data(const int fd, void *buf, const int nb);
+unsigned int			ft_read_bnum(const int fd, const int cnum);
+int						ft_read_num(char *src);
+void					ft_fill_map(t_cw *cw, int pl_num);
+
 
 /*
 **						OPERATIONS
